@@ -1,0 +1,6 @@
+#!/bin/sh
+
+branch=`git status | awk '/^On branch / {print $3}'`
+for repo in `git remote`; do
+    git push "$@" "$repo" "$branch"
+done

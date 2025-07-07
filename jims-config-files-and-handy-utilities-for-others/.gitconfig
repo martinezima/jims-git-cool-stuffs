@@ -1,0 +1,72 @@
+[user]
+    # Replace the name value with your actual name.
+    name = Martinez Ibarra, Miguel Angel
+    # Replace the email value with your ford email address.
+    email = m.martinez.ibarra@accenture.com
+
+[core]
+    # for *nix operating systems
+    # autocrlf = input
+    # safecrlf = true
+    autocrlf = true
+    safecrlf = true
+    editor = vim
+    excludesfile = ~/.gitignore
+
+[commit]
+    template = ~/.gitmessage
+
+[alias]
+    o = checkout
+    co = checkout
+    ci = commit
+    i = commit
+    st = status
+    s = status
+    br = branch
+    b = branch
+    r = restore
+    # only the last lg alias is in effect
+    # I rearrange to select whichever one I want
+    lg = log --pretty=format:'%h %ad %s%d [%an]' --graph --date=short
+    lg = log --pretty=format:'%h %ad %s%Cred%d%Creset [%an]' --graph --date=iso --color=always
+    lg = log --pretty=format:'%h %ad %s%d [%an]' --graph --date=iso
+    lg = log --pretty=format:'%h %ad %s%d [%an]' --graph --date=format-local:'%Y-%m-%d %H:%M:%S'
+    lg = log --pretty=format:'%h %ad %s%Cred%d%Creset [%an]' --graph --date=format-local:'%Y-%m-%d %H:%M:%S' --color=always
+    lg = log --pretty=format:'%h %ad %s%Cred%d%Creset [%an %ae]' --graph --date=format-local:'%Y-%m-%d %H:%M:%S' --color=always
+    type = cat-file -t
+    dump = cat-file -p
+    df = diff --color
+    dn = diff --name-only
+    dw = diff --color --word-diff
+    dc = diff --cached
+    dt = difftool
+    dy = difftool -y
+    dyc = difftool -y --cached
+    dcy = difftool -y --cached
+    credit = blame
+    cr = blame
+    # See https://stackoverflow.com/questions/2919878/git-rewrite-previous-commit-usernames-and-emails
+    # e.g., git change-commits GIT_AUTHOR_NAME "old name" "new name"
+    # e.g., git change-commits GIT_AUTHOR_EMAIL "old@email.com" "new@email.com" HEAD~10..HEAD
+    change-commits = "!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" $@; }; f"
+
+[diff]
+    # for gitbash in Microsoft Windows
+    #
+    # j@j:~$ ls -l ~/bin/meld
+    # -rwxr----- 1 JPRIOR17 1049089 55 Mar  4 10:46 /c/Users/jprior17/bin/meld*
+    # j@j:~$ cat ~/bin/meld
+    # #!/bin/sh
+    # 
+    # '/c/Program Files (x86)/Meld/Meld.exe' "$@"
+    # j@j:~$
+
+    tool = meld
+[difftool]
+    prompt = false
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
+
+[pull]
+    ff = only

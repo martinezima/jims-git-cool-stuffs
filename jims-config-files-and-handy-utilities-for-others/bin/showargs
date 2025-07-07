@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "There are $# arguments."
+i=1
+for argument in "$@"; do
+    echo "argument #$i: >$argument<"
+    i=`expr "$i" + 1`
+done

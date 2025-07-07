@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# git add modified files
+
+git status |
+awk '$1 == "modified:" {print $2}' |
+xargs git add

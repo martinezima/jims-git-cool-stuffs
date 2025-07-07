@@ -1,0 +1,26 @@
+#!/bin/echo Use . to include this instead of running in subshell.
+
+# echo 0
+# arg_n="$`echo $#`"
+# echo "arg_n >$arg_n<"
+# last_arg=`eval \$$arg"`
+# echo "last_arg >$last_arg<"
+# echo 1
+
+# echo before mkdir
+# echo "# >$#<"
+# for arg in "$@"; do
+#     echo "arg >$arg<"
+# done
+
+if mkdir "$@"; then
+    while [ "$#" -gt 1 ]; do
+        shift
+    done
+    echo before cd
+    echo "# >$#<"
+    for arg in "$@"; do
+        echo "arg >$arg<"
+    done
+    cd "$@"
+fi

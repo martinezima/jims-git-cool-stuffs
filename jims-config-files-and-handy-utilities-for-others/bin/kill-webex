@@ -1,0 +1,8 @@
+#!/bin/sh
+
+pstree -paul |
+grep 'CiscoCollabHos[t]' |
+awk -F 'CiscoCollabHost,' '{print $2}' |
+awk '{print $1}' |
+head -n 1 |
+xargs kill

@@ -1,0 +1,20 @@
+#!/bin/sh
+non_breaking_space=' '
+# non_breaking_space=`echo '\xc2\xa0'`
+# showargs tr " >${non_breaking_space}<A-Z" '--a-z'
+# exit
+for filename in "$@"; do
+    new_filename=`echo "$filename" | tr " A-Z${non_breaking_space}()" '-a-z---'`
+    if [ "x$filename" != "x$new_filename" ]; then
+        t="$new_filename.whatever"
+        if true; then
+            # for reasonable *nix filesystems
+            mv -n "$filename" "$new_filename"
+        else
+            # for macos' case insensitive filesystem
+            mv -n "$filename" "$t"
+            mv -n "$t" "$new_filename"
+        fi
+    fi
+done
+

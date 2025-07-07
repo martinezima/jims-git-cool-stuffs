@@ -1,0 +1,11 @@
+#!/bin/sh
+
+d=`date '+%Y-%m-%dT%H:%M:%S.%N'`
+
+filename=~/"backups/bash-history-backup-$d"
+mkdir -p `dirname "$filename"`
+cp -pi ~/.bash_history "$filename"
+
+filename=~/"backups/bashrc-backup-$d"
+mkdir -p `dirname "$filename"`
+cp -pi ~/.bashrc "$filename"

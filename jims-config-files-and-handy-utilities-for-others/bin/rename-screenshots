@@ -1,0 +1,41 @@
+#!/bin/sh
+
+cd ~/Pictures
+
+# showargs if [ '*.png' = *.png ]
+# for f in *.png; do
+#     showargs "$f"
+# done
+if ls *.png >/dev/null 2>&1; then
+    :
+else
+    exit 0
+fi
+
+if ls Screenshot\ *.png >/dev/null; then
+    et Screenshot\ *.png
+fi
+for f in screenshot-*.png; do
+    if [ "$f" = 'screenshot-*.png' ]; then
+        exit 0
+    fi
+    ls -l --full-time  "$f"
+    date=`       echo "$f" | sed -e 's/screenshot-from-\([12][0-9][0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)\(.*\).png/\1\2\3/'`
+    time=`       echo "$f" | sed -e 's/screenshot-from-\([12][0-9][0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)\(.*\).png/\4\5\6/'`
+    description=`echo "$f" | sed -e 's/screenshot-from-\([12][0-9][0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)-\([0-9][0-9]\)\(.*\).png/\7/'`
+    echo "date        is >$date<"
+    echo "time        is >$time<"
+    echo "description is >$description<"
+    if [ x"$date" = "x" ]; then
+        continue
+    fi
+    if [ x"$time" = "x" ]; then
+        continue
+    fi
+    g="screenshot-$date-$time$description.png"
+    echo "g is >$g<"
+    destination_directory=~/"screenshots/$date"
+    mkdir -p "$destination_directory"
+    echo "$f >$date< >$time<" '->' "$destination_directory/$g"
+    mv -i "$f" "$destination_directory/$g"
+done

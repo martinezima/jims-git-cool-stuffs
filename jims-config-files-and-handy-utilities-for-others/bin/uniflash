@@ -1,0 +1,3 @@
+#!/bin/sh
+
+~/ti/uniflash_8.0.0/uniFlashGUI.sh
